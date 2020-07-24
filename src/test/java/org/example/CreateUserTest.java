@@ -23,8 +23,8 @@ public class CreateUserTest {
 
         String url_www_test = "http://localhost:8080/";
         // TODO Auto-generated method stub
-        String exePath = "/var/jenkins_home/workspace/sbs_test_master/chromedriver";
-        System.setProperty("webdriver.chrome.driver", exePath);
+        //String exePath = "/var/jenkins_home/workspace/sbs_test_master/chromedriver";
+        //System.setProperty("webdriver.chrome.driver", exePath);
 
         try {
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
