@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,9 +28,12 @@ public class CreateUserTest {
         //System.setProperty("webdriver.chrome.driver", exePath);
 
         try {
-            DesiredCapabilities capability = DesiredCapabilities.chrome();
-            capability.setCapability( "acceptSslCerts", true );
-            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+            //DesiredCapabilities capability = DesiredCapabilities.chrome();
+            //capability.setCapability( "acceptSslCerts", true );
+
+            ChromeOptions options = new ChromeOptions();
+
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
