@@ -1,19 +1,19 @@
 package org.example;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CreateUser {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class CreateUserTest {
     static WebDriver driver;
 
-    @BeforeClass
+    @BeforeAll
     public static void setup(){
 
         String url_www_test = "http://localhost:8080/";
@@ -24,7 +24,7 @@ public class CreateUser {
         driver.get(url_www_test);
     }
 
-    @Test()
+    @Test
     public void createAccount(){
         String compare = "";
         String correctEmail = "testusershare1@gmail.com";
@@ -46,6 +46,6 @@ public class CreateUser {
         }catch(Exception ex){
             compare = "";
         }
-        Assert.assertEquals(compare, "New account crated, confirmation e-mail sent. Open your e-mail box and finish registration by clicking confirmation link");
+        assertEquals(compare, "New account crated, confirmation e-mail sent. Open your e-mail box and finish registration by clicking confirmation link");
     }
 }
