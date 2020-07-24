@@ -28,6 +28,7 @@ public class CreateUserTest {
 
         try {
             DesiredCapabilities capability = DesiredCapabilities.chrome();
+            capability.setCapability( "acceptSslCerts", true );
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
         } catch (MalformedURLException e) {
             e.printStackTrace();
