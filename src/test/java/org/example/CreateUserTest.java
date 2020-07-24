@@ -18,7 +18,7 @@ public class CreateUserTest {
 
         String url_www_test = "http://localhost:8080/";
         // TODO Auto-generated method stub
-        String exePath = "chromedriver";
+        String exePath = "/var/jenkins_home/workspace/sbs_test_master/chromedriver";
         System.setProperty("webdriver.chrome.driver", exePath);
         driver = new ChromeDriver();
         driver.get(url_www_test);
