@@ -5,13 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreateUserTest {
-    static WebDriver driver;
+    static RemoteWebDriver driver;
 
     @BeforeAll
     public static void setup(){
@@ -20,7 +25,12 @@ public class CreateUserTest {
         // TODO Auto-generated method stub
         String exePath = "/var/jenkins_home/workspace/sbs_test_master/chromedriver";
         System.setProperty("webdriver.chrome.driver", exePath);
-        driver = new ChromeDriver();
+
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         driver.get(url_www_test);
     }
 
