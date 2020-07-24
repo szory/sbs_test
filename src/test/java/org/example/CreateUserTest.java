@@ -16,7 +16,7 @@ import java.net.URL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreateUserTest {
-    static RemoteWebDriver driver;
+    static WebDriver driver;
 
     @BeforeAll
     public static void setup(){
@@ -27,7 +27,8 @@ public class CreateUserTest {
         //System.setProperty("webdriver.chrome.driver", exePath);
 
         try {
-            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
+            DesiredCapabilities capability = DesiredCapabilities.chrome();
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
