@@ -18,7 +18,7 @@ public class CreateUserTest {
 
         String url_www_test = "http://localhost:8080/";
         // TODO Auto-generated method stub
-        String exePath = "H:\\instalki\\java\\chromedriver_win32_84\\chromedriver.exe";
+        String exePath = "chromedriver.exe";
         System.setProperty("webdriver.chrome.driver", exePath);
         driver = new ChromeDriver();
         driver.get(url_www_test);
