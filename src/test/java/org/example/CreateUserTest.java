@@ -34,7 +34,13 @@ public class CreateUserTest {
             ChromeOptions options = new ChromeOptions();
             options.setCapability("platform", "ANY");
 
-            driver = new RemoteWebDriver(new URL("http://172.18.0.3:4444/wd/hub"), options);
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--remote-debugin-port=9222");
+            options.addArguments("--screen-size=1200x800");
+
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
