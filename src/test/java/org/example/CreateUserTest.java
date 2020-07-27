@@ -34,7 +34,7 @@ public class CreateUserTest {
             ChromeOptions options = new ChromeOptions();
             options.setCapability("platform", "ANY");
 
-            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+            driver = new RemoteWebDriver(new URL("http://172.18.0.3:5555/wd/hub"), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
