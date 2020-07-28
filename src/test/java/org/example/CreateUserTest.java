@@ -40,7 +40,7 @@ public class CreateUserTest {
             options.addArguments("remote-debugin-port=9222");
             options.addArguments("screen-size=1200x800");
 
-            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
+            driver = new RemoteWebDriver(new URL("http://192.168.1.102:4444/wd/hub"), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
