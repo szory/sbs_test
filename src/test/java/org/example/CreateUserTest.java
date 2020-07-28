@@ -22,7 +22,7 @@ public class CreateUserTest {
     @BeforeAll
     public static void setup(){
 
-        String url_www_test = "http://localhost:8080/";
+        String url_www_test = "http://192.168.1.102:8080/";
         // TODO Auto-generated method stub
         //String exePath = "h:\\instalki\\java\\chromedriver_win32_85\\chromedriver.exe";
         //System.setProperty("webdriver.chrome.driver", exePath);
