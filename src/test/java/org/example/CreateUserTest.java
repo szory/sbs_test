@@ -32,7 +32,7 @@ public class CreateUserTest {
             //capability.setCapability( "acceptSslCerts", true );
 
             ChromeOptions options = new ChromeOptions();
-            //options.setCapability("platform", "ANY");
+            options.setCapability("platform", "ANY");
 
             options.addArguments("headless");
             options.addArguments("no-sandbox");
