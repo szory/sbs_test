@@ -9,6 +9,7 @@ pipeline {
   stages {
     stage('Initialize') {
       steps {
+        sh 'docker exec -t -i mysql1 /bin/bash'
         sh 'mvn clean'
       }
     }
@@ -22,12 +23,6 @@ pipeline {
     stage('Report') {
       steps {
         junit 'target/surefire-reports/**/*.xml'
-      }
-    }
-
-    stage('Finalize_Tests') {
-      steps {
-        sh 'docker exec -t -i mysql1 /bin/bash mysql -uroot -p1234 -s < Dump20190914.sql'
       }
     }
 
