@@ -10,7 +10,7 @@ pipeline {
     stage('Initialize') {
       steps {
         sh 'mvn clean'
-        bat 'docker exec -i mysql1 mysql -uroot -p1234 -s < Dump20190914.sql'
+        sh 'docker exec -i mysql1 mysql -uroot -p1234 -s < Dump20190914.sql'
       }
     }
 
