@@ -27,7 +27,7 @@ pipeline {
 
     stage('Finalize_Tests') {
       steps {
-        sh '''docker exec -it mysql1 bash mysql -uroot -p1234 -s < Dump20190914.sql
+        sh '''docker exec -it mysql1 bash
 '''
       }
     }
