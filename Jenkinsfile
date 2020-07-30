@@ -10,7 +10,8 @@ pipeline {
     stage('Initialize') {
       steps {
         sh 'mvn clean'
-        sh 'docker1 exec -i mysql1 mysql -uroot -p1234 -s < Dump20190914.sql'
+        sh '''docker1 exec -i mysql1 mysql -uroot -p1234 -s < /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql
+'''
       }
     }
 
