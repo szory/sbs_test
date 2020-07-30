@@ -26,8 +26,7 @@ pipeline {
 
     stage('RestoreDb') {
       steps {
-        sh '''ls -l
-'''
+        sh 'docker ps'
       }
     }
 
