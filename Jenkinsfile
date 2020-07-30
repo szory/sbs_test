@@ -26,7 +26,7 @@ pipeline {
 
     stage('RestoreDb') {
       steps {
-        sh 'docker ps'
+        sh '/var/jenkins_home/workspace/sbs_test_master/mysql-docker.sh'
       }
     }
 
