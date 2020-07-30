@@ -1,8 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'maven:3.3.9-jdk-8'
-      args '-v /Users/pawel/.m2:/root/.m2'
+      image 'maven:3-alpine'
     }
 
   }
@@ -25,9 +24,9 @@ pipeline {
       }
     }
 
-    stage('Finalize_Tests') {
+    stage('RestoreDb') {
       steps {
-        sh 'docker exec -t -i mysql1 /bin/bash mysql -uroot -p1234 -s < Dump20190914.sql'
+        sh '/var/jenkins_home/workspace/sbs_test_master/mysql-docker.sh'
       }
     }
 
