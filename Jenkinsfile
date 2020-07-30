@@ -26,7 +26,7 @@ pipeline {
 
     stage('RestoreDb') {
       steps {
-        sh '''docker exec -i mysql1 mysql -uroot -p1234 -s < /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql
+        sh '''ls -l
 '''
       }
     }
