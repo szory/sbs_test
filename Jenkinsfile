@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Initialize') {
       steps {
-        sh '/var/jenkins_home/workspace/sbs_test_master/mysql-docker.sh'
+        sh 'docker ps'
         sh 'mvn clean'
       }
     }
