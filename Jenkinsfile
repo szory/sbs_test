@@ -14,6 +14,13 @@ pipeline {
       }
     }
 
+	stage('Restoredb') {
+      agent any
+      steps {
+        sh 'docker exec -i mysql1 mysql -uroot -p1234 -s <  /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql'
+      }
+    }
+	
     stage('Build') {
       agent {
         docker {
@@ -27,13 +34,5 @@ pipeline {
         junit 'target/surefire-reports/**/*.xml'
       }
     }
-
-    stage('Restoredb') {
-      agent any
-      steps {
-        sh 'docker exec -i mysql1 mysql -uroot -p1234 -s <  /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql'
-      }
-    }
-
   }
 }
