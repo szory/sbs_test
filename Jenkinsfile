@@ -30,6 +30,7 @@ pipeline {
 
       }
       steps {
+        sh 'ls -l'
         junit 'target/surefire-reports/**/*.xml'
       }
     }
