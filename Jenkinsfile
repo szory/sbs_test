@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'openjdk:7u181-jre'
-    }
-
-  }
+  agent any
   stages {
     stage('Initialize') {
       steps {
