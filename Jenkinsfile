@@ -32,7 +32,7 @@ pipeline {
 
           }
           steps {
-            sh 'mvn test -Dtest=ShowOffersTest#checkTextExistingInTable'
+            sh 'mvn clean test -Dtest=ShowOffersTest#checkTextExistingInTable'
             junit 'target/surefire-reports/**/*.xml'
           }
         }
@@ -46,7 +46,7 @@ pipeline {
 
           }
           steps {
-            sh 'mvn test -Dtest=CreateUserTest#createAccount'
+            sh 'mvn clean test -Dtest=CreateUserTest#createAccount'
             junit 'target/surefire-reports/**/*.xml'
           }
         }
