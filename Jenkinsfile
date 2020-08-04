@@ -47,6 +47,7 @@ pipeline {
           }
           steps {
             sh 'mvn test -Dtest=CreateUserTest#createAccount'
+            junit 'target/surefire-reports/**/*.xml'
           }
         }
 
