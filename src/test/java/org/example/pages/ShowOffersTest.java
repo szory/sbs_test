@@ -1,32 +1,29 @@
-package org.example;
+package org.example.pages;
 
+import org.example.CreateUserPage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreateUserTest {
+public class ShowOffersTest {
     static WebDriver driver;
 
     @BeforeAll
     public static void setup(){
 
-        String url_www_test = "http://192.168.1.102:8080/";
+        String url_www_test = "http://192.168.1.102:8080/showOffers?page=0&to_place=Rodos";
         // TODO Auto-generated method stub
         //String exePath = "h:\\instalki\\java\\chromedriver_win32_85\\chromedriver.exe";
         //System.setProperty("webdriver.chrome.driver", exePath);
@@ -57,27 +54,11 @@ public class CreateUserTest {
     }
 
     @Test
-    public void createAccount(){
-        String compare = "";
-        String correctEmail = "testusershare1@gmail.com";
-        String correctPassword = "Trus123456kawki";
-
-        CreateUserPage createUserPage = new CreateUserPage(driver);
-
-        createUserPage.createAccountBtn();
-
-        createUserPage.setEmail(correctEmail);
-        createUserPage.setPassword(correctPassword);
-        createUserPage.setRegulations();
-        createUserPage.createAccSubmit();
-
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.elementToBeClickable(By.id("welcomeNiuMsg")));
-            compare = createUserPage.getWelcomeNiuMsg().trim();
-        }catch(Exception ex){
-            compare = "";
-        }
-        assertEquals(compare, "New account crated, confirmation e-mail sent. Open your e-mail box and finish registration by clicking confirmation link");
+    public void checkTextExistingInTable(){
+        ShowOffersPage showOffersPage = new ShowOffersPage(driver);
+        List<WebElement> elements = showOffersPage.get_divOneOffer();
+        WebElement text = elements.get(0).findElement(By.xpath("//*[@id=\"content\"]/div[2]/div[2]/div[1]/a/div/div[3]/div/div[1]/div[3]"));
+        String dest_place = text.getText();
+        assertEquals(dest_place, "Rodos");
     }
 }
