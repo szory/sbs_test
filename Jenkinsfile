@@ -21,17 +21,36 @@ pipeline {
       }
     }
 
-    stage('Build') {
-      agent {
-        docker {
-          args '-v /Users/pawel/.m2:/root/.m2'
-          image 'maven:3.3.9-jdk-8'
+    stage('Chrome') {
+      parallel {
+        stage('Chrome') {
+          agent {
+            docker {
+              image 'maven:3.3.9-jdk-8'
+              args '-v /Users/pawel/.m2:/root/.m2'
+            }
+
+          }
+          steps {
+            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
+            junit 'target/surefire-reports/**/*.xml'
+          }
         }
 
-      }
-      steps {
-        sh 'mvn test'
-        junit 'target/surefire-reports/**/*.xml'
+        stage('Firefox') {
+          agent {
+            docker {
+              image 'maven:3.3.9-jdk-8'
+              args '-v /Users/pawel/.m2:/root/.m2'
+            }
+
+          }
+          steps {
+            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=firefox'
+            junit 'target/surefire-reports/**/*.xml'
+          }
+        }
+
       }
     }
 
