@@ -3,12 +3,10 @@ package org.example;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.UnexpectedAlertBehaviour;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -19,9 +17,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/*
+    mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome
+    mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=firefox
+ */
 public class CreateUserTest {
     static WebDriver driver;
+    static String browserType=System.getProperty("browserType");
 
     @BeforeAll
     public static void setup(){
@@ -34,16 +36,25 @@ public class CreateUserTest {
         try {
             //DesiredCapabilities capability = DesiredCapabilities.chrome();
             //capability.setCapability( "acceptSslCerts", true );
-
-            ChromeOptions options = new ChromeOptions();
+            MutableCapabilities options = null;
+            if (browserType.equals("chrome")){
+                ChromeOptions optionsCh = new ChromeOptions();
+                optionsCh.addArguments("headless");
+                //options.addArguments("no-sandbox");
+                //options.addArguments("disable-gpu");
+                //options.addArguments("remote-debugin-port=9222");
+                optionsCh.addArguments("screen-size=1200x800");
+                options = optionsCh;
+            }else if(browserType.equals("firefox")){
+                FirefoxOptions optionsF = new FirefoxOptions();
+                optionsF.addArguments("headless");
+                //options.addArguments("no-sandbox");
+                //options.addArguments("disable-gpu");
+                //options.addArguments("remote-debugin-port=9222");
+                optionsF.addArguments("screen-size=1200x800");
+                options = optionsF;
+            }
             options.setCapability("platform", "ANY");
-
-            //options.addArguments("headless");
-            //options.addArguments("no-sandbox");
-            //options.addArguments("disable-gpu");
-            //options.addArguments("remote-debugin-port=9222");
-            options.addArguments("screen-size=1200x800");
-
             driver = new RemoteWebDriver(new URL("http://192.168.1.102:4444/wd/hub"), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -59,8 +70,17 @@ public class CreateUserTest {
     @Test
     public void createAccount(){
         String compare = "";
-        String correctEmail = "testusershare1@gmail.com";
-        String correctPassword = "Trus123456kawki";
+        String correctEmail = "";
+        String correctPassword = "";
+
+        if (browserType.equals("chrome")){
+            correctEmail = "testusershareChrome@gmail.com";
+            correctPassword = "Trus123456kawki";
+
+        }else if(browserType.equals("firefox")){
+            correctEmail = "testusershareFire@gmail.com";
+            correctPassword = "Trus123456kawki";
+        }
 
         CreateUserPage createUserPage = new CreateUserPage(driver);
 
@@ -78,6 +98,6 @@ public class CreateUserTest {
         }catch(Exception ex){
             compare = "";
         }
-        assertEquals(compare, "New account crated, confirmation e-mail sent. Open your e-mail box and finish registration by clicking confirmation link");
+        assertEquals("New account crated, confirmation e-mail sent. Open your e-mail box and finish registration by clicking confirmation link",compare);
     }
 }
