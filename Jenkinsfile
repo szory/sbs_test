@@ -1,16 +1,19 @@
 pipeline {
   agent {
-    docker {
-      image 'maven:3.3.9-jdk-8'
-      args '-v /Users/pawel/.m2:/root/.m2'
-    }
-
+	label 'dockerserver' 
   }
   stages {
     stage('Initialize') {
-      steps {
-        sh 'mvn clean'
-      }
+	  agent {
+		docker {
+			label 'dockerserver'  // both label and image
+			image 'maven:3.3.9-jdk-8'
+			args '-v /Users/pawel/.m2:/root/.m2'
+			}
+		}
+	steps {
+		sh 'mvn clean'
+	  }
     }
 
     stage('Restoredb') {
@@ -23,14 +26,31 @@ pipeline {
     stage('Chrome') {
       parallel {
         stage('Chrome') {
-          steps {
+          	  agent {
+		docker {
+			label 'dockerserver'  // both label and image
+			image 'maven:3.3.9-jdk-8'
+			args '-v /Users/pawel/.m2:/root/.m2'
+			}
+		}
+
+		  
+		  steps {
             sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
             junit 'target/surefire-reports/**/*.xml'
           }
         }
 
         stage('Firefox') {
-          steps {
+          	  agent {
+		docker {
+			label 'dockerserver'  // both label and image
+			image 'maven:3.3.9-jdk-8'
+			args '-v /Users/pawel/.m2:/root/.m2'
+			}
+		}
+
+		  steps {
             sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=firefox'
             junit 'target/surefire-reports/**/*.xml'
           }
