@@ -1,56 +1,35 @@
 pipeline {
   agent {
-	label 'dockerserver' 
+    docker {
+      args '-v /Users/pawel/.m2:/root/.m2'
+      image 'maven:3.3.9-jdk-8'
+    }
+
   }
   stages {
     stage('Initialize') {
-	  agent {
-		docker {
-			label 'dockerserver'  // both label and image
-			image 'maven:3.3.9-jdk-8'
-			args '-v /Users/pawel/.m2:/root/.m2'
-			}
-		}
-	steps {
-		sh 'mvn clean'
-	  }
+      steps {
+        sh 'mvn clean'
+      }
     }
 
     stage('Restoredb') {
-      agent any
       steps {
-        sh 'docker exec -i mysql1 mysql -uroot -p1234 -s <  /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql'
+        sh 'ls -l'
       }
     }
 
     stage('Chrome') {
       parallel {
         stage('Chrome') {
-          	  agent {
-		docker {
-			label 'dockerserver'  // both label and image
-			image 'maven:3.3.9-jdk-8'
-			args '-v /Users/pawel/.m2:/root/.m2'
-			}
-		}
-
-		  
-		  steps {
+          steps {
             sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
             junit 'target/surefire-reports/**/*.xml'
           }
         }
 
         stage('Firefox') {
-          	  agent {
-		docker {
-			label 'dockerserver'  // both label and image
-			image 'maven:3.3.9-jdk-8'
-			args '-v /Users/pawel/.m2:/root/.m2'
-			}
-		}
-
-		  steps {
+          steps {
             sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=firefox'
             junit 'target/surefire-reports/**/*.xml'
           }
