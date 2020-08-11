@@ -20,21 +20,16 @@ pipeline {
     }
 
     stage('Chrome') {
-      parallel {
-        stage('Chrome') {
-          steps {
-            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
-            junit 'target/surefire-reports/**/*.xml'
-          }
-        }
+      steps {
+        sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
+        junit 'target/surefire-reports/**/*.xml'
+      }
+    }
 
-        stage('Firefox') {
-          steps {
-            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=firefox'
-            junit 'target/surefire-reports/**/*.xml'
-          }
-        }
-
+    stage('Firefox') {
+      steps {
+        sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=firefox'
+        junit 'target/surefire-reports/**/*.xml'
       }
     }
 
