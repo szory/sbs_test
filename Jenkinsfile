@@ -26,5 +26,12 @@ pipeline {
       }
     }
 
+    stage('Firefox') {
+      steps {
+        sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=firefox'
+        junit 'target/surefire-reports/**/*.xml'
+      }
+    }
+
   }
 }
