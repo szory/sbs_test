@@ -29,13 +29,14 @@ pipeline {
         }
 
       }
+	  def retryAttempt = 0
       steps {
         retry(count: 20) {
-          sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
+          sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar='+retryAttempt
           sh 'docker exec -i mysql1 mysql -uroot -p1234 -s <  /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql'
           junit 'target/surefire-reports/**/*.xml'
+		  retryAttempt = retryAttempt + 1
         }
-
       }
     }
 
