@@ -31,10 +31,8 @@ pipeline {
       }
       steps {
         script {
-          def retryAttempt = 0
-          for (int i = 0; i < browsers.size(); ++i) {
-            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${retryAttempt}'
-            retryAttempt = retryAttempt + 1
+          for (int i = 0; i < 5; i++) {
+            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${i}'
           }
         }
 
