@@ -27,15 +27,17 @@ pipeline {
           image 'maven:3.3.9-jdk-8'
           args '-v /Users/pawel/.m2:/root/.m2'
         }
-
       }
-	  def retryAttempt = 0
+	  script{	  
+		def retryAttempt = 0
+	  }
       steps {
         retry(count: 20) {
-          sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${retryAttempt}'
-          sh 'docker exec -i mysql1 mysql -uroot -p1234 -s <  /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql'
+		  script{	  
+			sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${retryAttempt}'
+			retryAttempt = retryAttempt + 1
+		  }
           junit 'target/surefire-reports/**/*.xml'
-		  retryAttempt = retryAttempt + 1
         }
       }
     }
