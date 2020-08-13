@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CreateUserTest {
     static WebDriver driver;
     static String browserType=System.getProperty("browserType");
+    static String incrementVar=System.getProperty("incrementVar");
 
     @BeforeAll
     public static void setup(){
@@ -80,11 +81,11 @@ public class CreateUserTest {
         String correctPassword = "";
 
         if (browserType.equals("chrome")){
-            correctEmail = "testusershareChrome@gmail.com";
+            correctEmail = "testusershareChrome"+incrementVar+"@gmail.com";
             correctPassword = "Trus123456kawki";
 
         }else if(browserType.equals("firefox")){
-            correctEmail = "testusershareFire@gmail.com";
+            correctEmail = "testusershareFire"+incrementVar+"@gmail.com";
             correctPassword = "Trus123456kawki";
         }
 
