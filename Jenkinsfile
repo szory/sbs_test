@@ -30,8 +30,12 @@ pipeline {
 
       }
       steps {
-        sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
-        junit 'target/surefire-reports/**/*.xml'
+        retry(count: 20) {
+          sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
+          sh 'docker exec -i mysql1 mysql -uroot -p1234 -s <  /var/jenkins_home/workspace/sbs_test_master/Dump20190914.sql'
+          junit 'target/surefire-reports/**/*.xml'
+        }
+
       }
     }
 
