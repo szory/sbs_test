@@ -32,7 +32,7 @@ pipeline {
       steps {
         script {
           for (int i = 0; i < 5; i++) {
-            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=$i'
+            sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar='+i
           }
         }
 
