@@ -22,13 +22,7 @@ pipeline {
     }
 
     stage('Chrome') {
-      agent {
-        docker {
-          image 'maven:3.3.9-jdk-8'
-          args '-v /Users/pawel/.m2:/root/.m2'
-        }
-
-      }
+      agent any
       steps {
         retry(count: 20) {
           sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome'
