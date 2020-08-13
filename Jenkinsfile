@@ -1,3 +1,4 @@
+def retryAttempt = 0
 pipeline {
   agent none
   stages {
@@ -29,9 +30,6 @@ pipeline {
         }
       }
       steps {
-		script{	  
-			def retryAttempt = 0
-		}
         retry(count: 20) {
 		  script{	  
 			sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${retryAttempt}'
