@@ -28,10 +28,10 @@ pipeline {
           args '-v /Users/pawel/.m2:/root/.m2'
         }
       }
-	  script{	  
-		def retryAttempt = 0
-	  }
       steps {
+		script{	  
+			def retryAttempt = 0
+		}
         retry(count: 20) {
 		  script{	  
 			sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${retryAttempt}'
