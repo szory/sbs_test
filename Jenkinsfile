@@ -32,7 +32,7 @@ pipeline {
       steps {
         script {
           for (int i = 0; i < 5; i++) {
-            echo i
+            echo "Testing the ${i} browser"
             sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${i}'
           }
         }
