@@ -1,4 +1,3 @@
-def retryAttempt = 0
 pipeline {
   agent none
   stages {
@@ -30,13 +29,14 @@ pipeline {
         }
       }
       steps {
-        retry(count: 20) {
-		  script{	  
-			sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${retryAttempt}'
-			retryAttempt = retryAttempt + 1
-		  }
-          junit 'target/surefire-reports/**/*.xml'
-        }
+        script{	  
+			def retryAttempt = 0
+			for (int i = 0; i < browsers.size(); ++i) {
+				sh 'mvn test -Dtest=CreateUserTest#createAccount -DbrowserType=chrome -DincrementVar=${retryAttempt}'
+				retryAttempt = retryAttempt + 1
+				junit 'target/surefire-reports/**/*.xml'
+			}
+		}
       }
     }
 
