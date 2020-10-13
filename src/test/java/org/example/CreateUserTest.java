@@ -33,7 +33,7 @@ public class CreateUserTest {
     @BeforeAll
     public static void setup(){
 
-        String url_www_test = "http://192.168.1.102:8080/";
+        String url_www_test = "http://192.168.0.6:8080/";
         // TODO Auto-generated method stub
         //String exePath = "h:\\instalki\\java\\chromedriver_win32_85\\chromedriver.exe";
         //System.setProperty("webdriver.chrome.driver", exePath);
@@ -60,7 +60,7 @@ public class CreateUserTest {
                 options = optionsF;
             }
             options.setCapability("platform", "ANY");
-            driver = new RemoteWebDriver(new URL("http://192.168.1.102:4444/wd/hub"), options);
+            driver = new RemoteWebDriver(new URL("http://192.168.0.6:4444/wd/hub"), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
