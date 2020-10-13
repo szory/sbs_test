@@ -24,7 +24,6 @@ pipeline {
       agent {
         docker {
           image 'maven:3.3.9-jdk-8'
-          args '-v /Users/pawel/.m2:/root/.m2'
         }
 
       }
@@ -41,7 +40,6 @@ pipeline {
     stage('Firefox') {
       agent {
         docker {
-          args '-v /Users/pawel/.m2:/root/.m2'
           image 'maven:3.3.9-jdk-8'
         }
 
