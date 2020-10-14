@@ -1,13 +1,12 @@
 package org.example;
 
-import org.openqa.selenium.WebDriver;
+import org.example.common.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class CreateUserPage {
+import java.net.MalformedURLException;
 
-    WebDriver driver;
+public class CreateUserPage extends BasePage {
 
     @FindBy(name="email")
     WebElement elementEmail;
@@ -27,9 +26,8 @@ public class CreateUserPage {
     @FindBy(id="welcomeNiuMsg")
     WebElement elementWelcomeNiuMsg;
 
-    public CreateUserPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public CreateUserPage() throws MalformedURLException {
+        super();
     }
 
     public void setEmail(String email){
@@ -55,5 +53,4 @@ public class CreateUserPage {
     public String getWelcomeNiuMsg(){
         return elementWelcomeNiuMsg.getText();
     }
-    //http://localhost:8080/welcomeNewUser use xPath selenium
 }
